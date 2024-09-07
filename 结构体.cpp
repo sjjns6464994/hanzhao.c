@@ -1,43 +1,36 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-struct  B
+struct clerk
 {
-    char c;
-    short s;
-    double d;
-};
-
-struct Stu
-{
-    //成员变量
-    struct B sb;
-    char name[20];
-    int age;//年龄
     char id[20];
-};//s1,s2;//s1和s2也是结构体变量
-//s1,s2是全局变量
-void printf1(struct Stu t)
-{
-    printf("%c %d %lf %s %d %s\n", t.sb.c, t.sb.s, t.sb.d, t.name, t.age, t.id);
-}
-void printf2(struct Stu* ps)
-{
-    printf("%c %d %lf %s %d %s\n", ps->sb.c, ps->sb.s, ps->sb.d, ps->name, ps->age, ps->id);
-}
+    int age;
+};
 int main()
 {
-    //s是局部变量
-    struct Stu s = {{'w', 20, 3.14}, "张三", 30, "20200534"};//对象   
-    //.  ->
-    printf("%c ", s.sb.c);
-    printf("%s\n", s.id);//学号是个字符串
-
-    struct Stu* ps = &s;
-    printf("%c\n", (*ps).sb.c);
-    printf("%c\n", ps -> sb.c);
-    printf1(s);
-    printf2(&s);
+    struct clerk a[100];
+    int n, temp1 = 0;
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%d %s", &a[i].age, a[i].id);
+    }
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            if (a[j].age < a[i].age)
+            {
+                temp1 = a[j].age;
+                a[j].age = a[i].age;
+                a[i].age = temp1;
+            }
+        }
+    }
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d %s\n", a[i].age, a[i].id);
+    }
     system("pause");
     return 0;
 }
